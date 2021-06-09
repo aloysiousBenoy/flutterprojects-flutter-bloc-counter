@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         home: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
       lazy: false,
-      create: (context) => CounterBloc(0),
+      create: (context) => CounterBloc(CounterState(0)),
     );
   }
 }
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: BlocBuilder<CounterBloc, int>(
+      body: BlocBuilder<CounterBloc, CounterState>(
         bloc: BlocProvider.of<CounterBloc>(context),
         builder: (context, state) {
           return Center(
@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               Text('You have pused the button this many times:'),
               Text(
-                '$state',
+                '${state.counter}',
                 style: Theme.of(context).textTheme.bodyText1,
               ),
             ],

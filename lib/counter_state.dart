@@ -1,12 +1,5 @@
-class CounterState{
-  int counter;
-
-  // CounterState(){
-  //   counter=0;
-  // }
- 
-  CounterState._();
-  factory CounterState.intial(){
-    print('infactory');
-    return CounterState._()..counter=1; }
+class CounterState {
+  // Field is made final
+  final int counter;
+  CounterState(this.counter) : assert(counter != null);
 }
