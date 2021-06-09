@@ -9,11 +9,10 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-          child:MaterialApp(
+      child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
         home: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
       lazy: false,
-      create: (context) => CounterBloc(CounterState.intial()),  
+      create: (context) => CounterBloc(CounterState.intial()),
     );
   }
 }
@@ -36,34 +35,36 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      appBar: AppBar( title: Text(widget.title),),
-      
-      body: BlocBuilder<CounterBloc,CounterState>(
-      bloc: BlocProvider.of<CounterBloc>(context) ,
-      builder: (context,CounterState state){
-        return Center(
-         child:Column(
-           children: [
-             Text('You have pused the button this many times:'),
-             Text('${state.counter}',style: Theme.of(context).textTheme.bodyText1,),
-           ],)
-       ); 
-      },
-    ),
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: BlocBuilder<CounterBloc, CounterState>(
+        bloc: BlocProvider.of<CounterBloc>(context),
+        builder: (context, CounterState state) {
+          return Center(
+              child: Column(
+            children: [
+              Text('You have pused the button this many times:'),
+              Text(
+                '${state.counter}',
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ],
+          ));
+        },
+      ),
       floatingActionButton: FloatingActionButton(
-
-        onPressed:()=> BlocProvider.of<CounterBloc>(context).add(IncrementEvent()),
-        
+        onPressed: () =>
+            BlocProvider.of<CounterBloc>(context).add(IncrementEvent()),
         tooltip: 'Increment',
         child: Icon(Icons.add),
-      ), 
+      ),
     );
   }
+
   @override
   void dispose() {
     BlocProvider.of<CounterBloc>(context);
