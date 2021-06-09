@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         home: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
       lazy: false,
-      create: (context) => CounterBloc(CounterState.intial()),
+      create: (context) => CounterBloc(0),
     );
   }
 }
@@ -41,15 +41,15 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: BlocBuilder<CounterBloc, CounterState>(
+      body: BlocBuilder<CounterBloc, int>(
         bloc: BlocProvider.of<CounterBloc>(context),
-        builder: (context, CounterState state) {
+        builder: (context, state) {
           return Center(
               child: Column(
             children: [
               Text('You have pused the button this many times:'),
               Text(
-                '${state.counter}',
+                '$state',
                 style: Theme.of(context).textTheme.bodyText1,
               ),
             ],
@@ -67,7 +67,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
-    BlocProvider.of<CounterBloc>(context);
+    // Should call close () method here, ie
+    BlocProvider.of<CounterBloc>(context).close();
+    // instead of
+    // BlocProvider.of<CounterBloc>(context);
+    // which has no effect
     super.dispose();
   }
 }
